@@ -5,7 +5,7 @@ import rain from '../assets/rain.svg'
 import locationIcon from '../assets/location.svg'
 import { useLocation } from '../hooks/state/useLocation'
 import { Line } from 'react-chartjs-2'
-import { Chart as ChartJS } from 'chart.js/auto'
+import { Chart as ChartJS, ChartComponent } from 'chart.js/auto'
 import { hours } from '../constants'
 import dayjs from 'dayjs'
 
@@ -22,7 +22,7 @@ type DefaultLocationCardProps = {
   }
 }
 
-ChartJS.register({ id: 'line', component: Line })
+ChartJS.register({ id: 'line', component: Line as unknown as ChartComponent })
 
 export const WeatherCard = ({ currDate }: DefaultLocationCardProps) => {
   const { location } = useLocation()
