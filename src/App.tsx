@@ -16,6 +16,8 @@ function App() {
 
   if (!defaultLocation) return <div>Loading...</div>
 
+  console.log(defaultLocation)
+
   const defaultLocationOptions = defaultLocation.days.map((day) => {
     const date = dayjs(day.datetime).format('ddd MM-DD-YYYY')
 
@@ -25,9 +27,6 @@ function App() {
   const currDate = initialDate !== '' && defaultLocation.days.find((day) => day.datetime === initialDate)
 
   const pickedFutureDate = futureDate !== '' && defaultLocation.days.find((day) => day.datetime === futureDate)
-  console.log({ initialDate })
-
-  console.log({ currDate })
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">

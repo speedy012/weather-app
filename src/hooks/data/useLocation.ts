@@ -96,7 +96,7 @@ export type WeatherData = {
   tzoffset: number
   description: string
   days: WeatherDayData[]
-  alerts: any[]
+  alerts: object[]
   stations: { [key: string]: WeatherStation }
   currentConditions: WeatherHourData & {
     sunrise: string
@@ -109,9 +109,9 @@ export type WeatherData = {
 
 export const useFetchDefaultLocation = (city: string) => {
   const fetchDefaultLocation = async (city: string) => {
-    const repsonse = await axios.get(`${BASE_URL}/${city}?key=${apiKey}`)
+    const repsonse = await axios.get<WeatherData>(`${BASE_URL}/${city}?key=${apiKey}`)
 
-    return repsonse?.data as WeatherData
+    return repsonse?.data
   }
 
   return useQuery({
