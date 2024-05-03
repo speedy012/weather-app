@@ -1,17 +1,12 @@
 import './App.css'
 import { Header } from './components/Header'
-import { useFetchDefaultLocation } from './hooks/data/useLocation'
+import { WeatherDayData, useFetchDefaultLocation } from './hooks/data/useLocation'
 import { WeatherCard } from './components/WeatherCard'
 import { useLocation } from './hooks/state/useLocation'
 import Select from 'react-select'
-import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import { useDates } from './hooks/state/useDates'
 import dayjs from 'dayjs'
-
-const validationSchema = Yup.object().shape({
-  data: Yup.string().required('date is required'),
-})
 
 function App() {
   const { location } = useLocation()
@@ -21,17 +16,18 @@ function App() {
 
   if (!defaultLocation) return <div>Loading...</div>
 
-  const defaultLocationOptions = defaultLocation.days.map((day: { datetime: string; datetimeEpoch: number }) => {
+  const defaultLocationOptions = defaultLocation.days.map((day) => {
     const date = dayjs(day.datetime).format('ddd MM-DD-YYYY')
 
     return { value: day.datetime, label: date }
   })
 
-  const currDate =
-    initialDate !== '' && defaultLocation.days.find((day: { datetime: string }) => day.datetime === initialDate.value)
+  const currDate = initialDate !== '' && defaultLocation.days.find((day) => day.datetime === initialDate)
 
-  const pickedFutureDate =
-    futureDate !== '' && defaultLocation.days.find((day: { datetime: string }) => day.datetime === futureDate.value)
+  const pickedFutureDate = futureDate !== '' && defaultLocation.days.find((day) => day.datetime === futureDate)
+  console.log({ initialDate })
+
+  console.log({ currDate })
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
@@ -40,53 +36,70 @@ function App() {
         <div className="flex flex-col md:flex-row w-full gap-2 md:gap-6">
           <div className="md:w-1/2">
             <label htmlFor="current date">Current Date</label>
-
             <Formik
               initialValues={{ date: '' }}
-              validationSchema={validationSchema}
               onSubmit={(values) => {
-                console.log({ values })
+                setInitialDate(values.date)
               }}
             >
-              <Form className="flex items-center gap-2">
-                <Select
-                  aria-labelledby="current date picker"
-                  className="w-full"
-                  defaultValue={initialDate}
-                  options={defaultLocationOptions}
-                  onChange={(newValue) => {
-                    setInitialDate(newValue ?? '')
-                  }}
-                />
-              </Form>
+              {({ values, setFieldValue, handleChange, setFieldTouched, handleSubmit }) => (
+                <Form className="flex items-center gap-2">
+                  <Select
+                    arial-label="date"
+                    className="w-full"
+                    value={defaultLocationOptions.find((option) => option.value === values.date)}
+                    options={defaultLocationOptions}
+                    onChange={(newValue) => {
+                      handleChange(newValue?.value)
+                      setFieldValue('date', newValue?.value)
+                      handleSubmit()
+                    }}
+                    onBlur={() => {
+                      setFieldTouched('date', true)
+                    }}
+                  />
+                  <button type="submit" className="hidden">
+                    Submit
+                  </button>
+                </Form>
+              )}
             </Formik>
           </div>
           <div className="md:w-1/2">
-            <label htmlFor="future date">Future Date</label>
+            <label htmlFor="location">Future Date</label>
             <Formik
               initialValues={{ date: '' }}
-              validationSchema={validationSchema}
               onSubmit={(values) => {
-                console.log({ values })
+                setFutureDate(values.date)
               }}
             >
-              <Form className="flex items-center gap-2">
-                <Select
-                  aria-label="future date picker"
-                  className="w-full"
-                  defaultValue={futureDate}
-                  options={defaultLocationOptions}
-                  onChange={(newValue) => {
-                    setFutureDate(newValue ?? '')
-                  }}
-                />
-              </Form>
+              {({ values, setFieldValue, handleChange, setFieldTouched, handleSubmit }) => (
+                <Form className="flex items-center gap-2 ">
+                  <Select
+                    aria-label="future date picker"
+                    className="w-full"
+                    value={defaultLocationOptions.find((option) => option.value === values.date)}
+                    options={defaultLocationOptions}
+                    onChange={(newValue) => {
+                      handleChange(newValue?.value)
+                      setFieldValue('date', newValue?.value)
+                      handleSubmit()
+                    }}
+                    onBlur={() => {
+                      setFieldTouched('date', true)
+                    }}
+                  />
+                  <button type="submit" className="hidden">
+                    Submit
+                  </button>
+                </Form>
+              )}
             </Formik>
           </div>
         </div>
         <div className="flex flex-col md:flex-row gap-6 md:gap-6">
-          <WeatherCard currDate={currDate} />
-          <WeatherCard currDate={pickedFutureDate} />
+          <WeatherCard currDate={currDate as WeatherDayData} />
+          <WeatherCard currDate={pickedFutureDate as WeatherDayData} />
         </div>
       </main>
       <footer className="bg-white dark:bg-gray-800 shadow">
