@@ -1,6 +1,6 @@
 import './App.css'
 import { Header } from './components/Header'
-import { WeatherData, WeatherDayData, useFetchDefaultLocation } from './hooks/data/useLocation'
+import { WeatherDayData, useFetchDefaultLocation } from './hooks/data/useLocation'
 import { WeatherCard } from './components/WeatherCard'
 import { useLocation } from './hooks/state/useLocation'
 import Select from 'react-select'
@@ -98,8 +98,8 @@ function App() {
           </div>
         </div>
         <div className="flex flex-col md:flex-row gap-6 md:gap-6">
-          <WeatherCard currDate={currDate as WeatherDayData | WeatherData} />
-          <WeatherCard currDate={pickedFutureDate as WeatherDayData | WeatherData} />
+          <WeatherCard currDate={currDate as WeatherDayData} />
+          <WeatherCard currDate={pickedFutureDate as WeatherDayData} />
         </div>
       </main>
       <footer className="bg-white dark:bg-gray-800 shadow">
