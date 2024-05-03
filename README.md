@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
+<h1 align='center'>Weather App</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Getting Started
 
-Currently, two official plugins are available:
+**1. Install the correct Node version.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Used in this project is Node 20.12.7.
 
-## Expanding the ESLint configuration
+[I recommend doing so via `nvm`.](https://github.com/nvm-sh/nvm/blob/master/README.md#installing-and-updating)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+If you [integrate it via your shell](https://github.com/nvm-sh/nvm/blob/master/README.md#deeper-shell-integration), you can make it so that NVM will automatically use the correct version of Node. It will also download a version of Node if you don't have one that matches the requirements laid out in the local `.nvmrc` file.
 
-- Configure the top-level `parserOptions` property like this:
+**2. Setup `pnpm` and install dependencies**
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Once you have a Node runtime available, you can use the following commands to activate `pnpm` and install the project's dependencies.
+
+**3. Start the development server**
+
 ```
+pnpm run dev
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# You can CTRL+Click on the logged URL, or...
+# Open your browser at the relevant URL
+# By default, it should be localhost:5173, but you can override the port with a `-p` flag
+```
