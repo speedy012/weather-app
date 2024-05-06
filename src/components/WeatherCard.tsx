@@ -44,9 +44,9 @@ export const WeatherCard = ({ currDate }: { currDate: WeatherDayData }) => {
         label: 'Temperature',
         data:
           currentLocation?.days
-            .find((day: { datetime: string }) => day.datetime === currDate.datetime)
-            ?.hours.map((day: { temp: number }) => Math.round(day.temp)) ??
-          currentLocation?.days[0].hours.map((day: { temp: number }) => Math.round(day.temp)),
+            .find((day) => day.datetime === currDate.datetime)
+            ?.hours.map((day) => Math.round(day.temp)) ??
+          currentLocation?.days[0].hours.map((day) => Math.round(day.temp)),
         fill: false,
         borderColor: 'rgb(75, 192, 192)',
         tension: 0.1,

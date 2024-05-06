@@ -16,8 +16,6 @@ function App() {
 
   if (!defaultLocation) return <div>Loading...</div>
 
-  console.log(defaultLocation)
-
   const defaultLocationOptions = defaultLocation.days.map((day) => {
     const date = dayjs(day.datetime).format('ddd MM-DD-YYYY')
 

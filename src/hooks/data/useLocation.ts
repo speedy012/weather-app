@@ -109,9 +109,9 @@ export type WeatherData = {
 
 export const useFetchDefaultLocation = (city: string) => {
   const fetchDefaultLocation = async (city: string) => {
-    const repsonse = await axios.get<WeatherData>(`${BASE_URL}/${city}?key=${apiKey}`)
+    const response = await axios.get<WeatherData>(`${BASE_URL}/${city}?key=${apiKey}`)
 
-    return repsonse?.data
+    return response?.data
   }
 
   return useQuery({
